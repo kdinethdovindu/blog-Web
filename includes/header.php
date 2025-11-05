@@ -19,6 +19,7 @@ body{background:#0b1220;color:#e5e7eb;font-family:system-ui,-apple-system,Segoe 
       <a href="<?php echo base_url(); ?>">Home</a>
       <a href="<?php echo base_url('new.php'); ?>">Create</a>
       <?php if (!empty($_SESSION['user'])): ?>
+        <a href="<?php echo base_url('mine.php'); ?>">My Posts</a>
         <span class="welcome">Hi, <?php echo e($_SESSION['user']['username']); ?></span>
         <a href="<?php echo base_url('logout.php'); ?>">Logout</a>
       <?php else: ?>

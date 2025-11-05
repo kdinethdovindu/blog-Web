@@ -3,7 +3,11 @@
 // Bootstraps sessions, DB, and shared helpers for all pages.
 
 if (session_status() === PHP_SESSION_NONE) {
-    session_start(); // sessions (used later for login)
+    session_start();// sessions (used later for login)
+    if (empty($_SESSION['csrf'])) {
+    $_SESSION['csrf'] = bin2hex(random_bytes(16));
+}
+ 
 }
 
 require_once __DIR__ . '/../config/.env.php';
