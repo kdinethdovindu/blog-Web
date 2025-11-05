@@ -35,8 +35,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <form method="post" style="display:grid;gap:12px;max-width:720px">
   <input name="title" value="<?php echo e($title); ?>" placeholder="Title"
          style="padding:10px;border-radius:10px;border:1px solid #263452;background:#0e1627;color:#e5e7eb" required>
+  <div class="editor-bar">
+    <a href="#" id="toggle-preview" class="button">Toggle Preview</a>
+    <span class="hint">Supports <code>#</code> headings, <code>**bold**</code>, <code>*italic*</code>, <code>`code`</code></span>
+  </div>       
   <textarea name="content" rows="10" placeholder="Write your blog content here..."
          style="padding:12px;border-radius:12px;border:1px solid #263452;background:#0e1627;color:#e5e7eb"><?php echo e($content); ?></textarea>
+  <div id="preview-box" class="preview-wrap"></div>       
   <button class="button" type="submit">Publish</button>
 </form>
 <p><a class="button" href="<?php echo base_url(); ?>">← Back</a></p>

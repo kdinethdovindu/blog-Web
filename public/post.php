@@ -27,8 +27,25 @@ if (!$post) {
 <article class="card">
   <h1><?php echo e($post['title']); ?></h1>
   <p class="meta">by <?php echo e($post['author']); ?> • <?php echo date('Y-m-d H:i', strtotime($post['created_at'])); ?></p>
-  <p><?php echo nl2br(e($post['content'])); ?></p>
-  
+  <?php
+// light renderer to match preview: escape first, then minimal formatting
+function render_post($s){
+  $s = htmlspecialchars($s, ENT_QUOTES, 'UTF-8');
+  $s = preg_replace('/^### (.*)$/m','<h3>$1</h3>', $s);
+  $s = preg_replace('/^## (.*)$/m','<h2>$1</h2>', $s);
+  $s = preg_replace('/^# (.*)$/m','<h1>$1</h1>', $s);
+  $s = preg_replace('/\*\*(.+?)\*\*/s','<strong>$1</strong>', $s);
+  $s = preg_replace('/\*(.+?)\*/s','<em>$1</em>', $s);
+  $s = preg_replace('/`(.+?)`/s','<code>$1</code>', $s);
+  $s = nl2br($s);
+  return $s;
+}
+?>
+<div class="card">
+  <?php echo render_post($post['content']); ?>
+</div>
+
+
   <?php if (current_user() && (current_user()['id'] === (int)$post['user_id'] || current_user()['role'] === 'admin')): ?>
   <div style="display:flex;gap:8px;margin-top:10px">
     <a class="button" href="<?php echo base_url('edit.php?id='.$post['id']); ?>">Edit</a>

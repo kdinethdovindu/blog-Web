@@ -10,6 +10,9 @@
 /* tiny fallback if CSS file doesn’t load */
 body{background:#0b1220;color:#e5e7eb;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Helvetica Neue',Arial;margin:0}
 </style>
+<script src="<?php echo base_url('../assets/js/app.js'); ?>" defer></script>
+<script src="<?php echo base_url('../assets/js/editor.js'); ?>" defer></script>
+
 </head>
 <body>
 <header class="site-header">
