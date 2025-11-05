@@ -29,3 +29,5 @@ body{background:#0b1220;color:#e5e7eb;font-family:system-ui,-apple-system,Segoe 
   </div>
 </header>
 <main class="container">
+<?php require __DIR__ . '/flash.php'; ?>
+

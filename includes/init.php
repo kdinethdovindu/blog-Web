@@ -34,3 +34,15 @@ function slugify(string $text): string {
 
 // quick PDO handle (reuses function from config/db.php)
 function db(): PDO { return pdo(); }
+
+function flash(string $key, ?string $msg = null) {
+    if ($msg !== null) { $_SESSION['flash'][$key] = $msg; return; }
+    if (!empty($_SESSION['flash'][$key])) {
+        $m = $_SESSION['flash'][$key]; unset($_SESSION['flash'][$key]); return $m;
+    }
+    return null;
+}
+function current_user(): ?array { return $_SESSION['user'] ?? null; }
+function require_login(): void {
+    if (!current_user()) { flash('error', 'Please log in first.'); header('Location: '.base_url('login.php')); exit; }
+}
