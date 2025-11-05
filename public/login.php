@@ -26,12 +26,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php if ($errors): ?>
   <div style="color:#ef4444"><?php foreach ($errors as $e) echo '<div>'.e($e).'</div>'; ?></div>
 <?php endif; ?>
-<form method="post" style="display:grid;gap:12px;max-width:420px">
-  <input name="identity" value="<?php echo e($identity ?? ''); ?>" placeholder="Username or Email" required
-         style="padding:10px;border-radius:10px;border:1px solid #263452;background:#0e1627;color:#e5e7eb">
-  <input type="password" name="password" placeholder="Password" required
-         style="padding:10px;border-radius:10px;border:1px solid #263452;background:#0e1627;color:#e5e7eb">
-  <button class="button" type="submit">Login</button>
+<form method="post" style="display:grid;gap:16px;max-width:420px">
+  <div class="form-field">
+    <input name="identity" value="<?php echo e($identity ?? ''); ?>" placeholder=" " required>
+    <label>Username or Email</label>
+  </div>
+  <div class="form-field">
+    <input type="password" name="password" placeholder=" " required>
+    <label>Password</label>
+  </div>
+  <button class="button primary" type="submit">Login</button>
 </form>
 <p class="meta">No account? <a href="<?php echo base_url('register.php'); ?>">Register</a></p>
+
 <?php require_once __DIR__ . '/../includes/footer.php';

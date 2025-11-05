@@ -14,7 +14,9 @@ body{background:#0b1220;color:#e5e7eb;font-family:system-ui,-apple-system,Segoe 
 <script src="<?php echo base_url('../assets/js/editor.js'); ?>" defer></script>
 
 </head>
-<body>
+<body class="<?php echo basename($_SERVER['PHP_SELF'], '.php') === 'index' ? 'page-home' :
+(basename($_SERVER['PHP_SELF'], '.php') === 'new' ? 'page-create' :
+(basename($_SERVER['PHP_SELF'], '.php') === 'edit' ? 'page-edit' : 'page-auth')); ?>">
 <header class="site-header">
   <div class="container">
     <a class="brand" href="<?php echo base_url(); ?>">Blog<span>App</span></a>

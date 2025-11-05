@@ -38,16 +38,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php if ($errors): ?>
   <div style="color:#ef4444"><?php foreach ($errors as $e) echo '<div>'.e($e).'</div>'; ?></div>
 <?php endif; ?>
-<form method="post" style="display:grid;gap:12px;max-width:480px">
-  <input name="username" value="<?php echo e($username); ?>" placeholder="Username" required
-         style="padding:10px;border-radius:10px;border:1px solid #263452;background:#0e1627;color:#e5e7eb">
-  <input type="email" name="email" value="<?php echo e($email); ?>" placeholder="Email" required
-         style="padding:10px;border-radius:10px;border:1px solid #263452;background:#0e1627;color:#e5e7eb">
-  <input type="password" name="password" placeholder="Password (min 8 chars)" required
-         style="padding:10px;border-radius:10px;border:1px solid #263452;background:#0e1627;color:#e5e7eb">
-  <input type="password" name="confirm" placeholder="Confirm password" required
-         style="padding:10px;border-radius:10px;border:1px solid #263452;background:#0e1627;color:#e5e7eb">
-  <button class="button" type="submit">Register</button>
+<form method="post" style="display:grid;gap:16px;max-width:480px">
+  <div class="form-field">
+    <input name="username" value="<?php echo e($username); ?>" placeholder=" " required>
+    <label>Username</label>
+  </div>
+  <div class="form-field">
+    <input type="email" name="email" value="<?php echo e($email); ?>" placeholder=" " required>
+    <label>Email</label>
+  </div>
+  <div class="form-field">
+    <input type="password" name="password" placeholder=" " required>
+    <label>Password (min 8 chars)</label>
+  </div>
+  <div class="form-field">
+    <input type="password" name="confirm" placeholder=" " required>
+    <label>Confirm Password</label>
+  </div>
+  <button class="button primary" type="submit">Register</button>
 </form>
 <p class="meta">Already have an account? <a href="<?php echo base_url('login.php'); ?>">Log in</a></p>
+
 <?php require_once __DIR__ . '/../includes/footer.php';

@@ -39,17 +39,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php if ($errors): ?>
   <div style="color:#ef4444"><?php foreach ($errors as $e) echo '<div>'.e($e).'</div>'; ?></div>
 <?php endif; ?>
-<form method="post" style="display:grid;gap:12px;max-width:720px">
-  <input name="title" value="<?php echo e($title); ?>" placeholder="Title"
-         style="padding:10px;border-radius:10px;border:1px solid #263452;background:#0e1627;color:#e5e7eb" required>
+<form method="post" style="display:grid;gap:16px;max-width:720px">
+  <div class="form-field">
+    <input name="title" value="<?php echo e($title); ?>" placeholder=" " required>
+    <label>Title</label>
+  </div>
+
   <div class="editor-bar">
-    <a href="#" id="toggle-preview" class="button">Toggle Preview</a>
+    <a href="#" id="toggle-preview" class="button ghost">Toggle Preview</a>
     <span class="hint">Supports <code>#</code> headings, <code>**bold**</code>, <code>*italic*</code>, <code>`code`</code></span>
   </div>
-  <textarea name="content" rows="10" placeholder="Update content..."
-         style="padding:12px;border-radius:12px;border:1px solid #263452;background:#0e1627;color:#e5e7eb"><?php echo e($content); ?></textarea>
-  <div id="preview-box" class="preview-wrap"></div>       
-  <button class="button" type="submit">Save Changes</button>
+
+  <div class="form-field">
+    <textarea name="content" rows="10" placeholder=" "><?php echo e($content); ?></textarea>
+    <label>Content</label>
+  </div>
+
+  <div id="preview-box" class="preview-wrap"></div>
+
+  <button class="button success" type="submit">Save Changes</button>
+
 </form>
-<p><a class="button" href="<?php echo base_url('mine.php'); ?>">← Back to My Posts</a></p>
+<p><a class="button ghost" href="<?php echo base_url('mine.php'); ?>">← Back to My Posts</a></p>
+
 <?php require_once __DIR__ . '/../includes/footer.php';

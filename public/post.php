@@ -27,6 +27,11 @@ if (!$post) {
 <article class="card">
   <h1><?php echo e($post['title']); ?></h1>
   <p class="meta">by <?php echo e($post['author']); ?> • <?php echo date('Y-m-d H:i', strtotime($post['created_at'])); ?></p>
+  <div class="badges">
+  <span class="badge blue">Blog</span>
+  <span class="badge green">Active</span>
+</div>
+
   <?php
 // light renderer to match preview: escape first, then minimal formatting
 function render_post($s){
@@ -48,8 +53,8 @@ function render_post($s){
 
   <?php if (current_user() && (current_user()['id'] === (int)$post['user_id'] || current_user()['role'] === 'admin')): ?>
   <div style="display:flex;gap:8px;margin-top:10px">
-    <a class="button" href="<?php echo base_url('edit.php?id='.$post['id']); ?>">Edit</a>
-    <a class="button" href="<?php echo base_url('delete.php?id='.$post['id'].'&token='.urlencode($_SESSION['csrf'] ?? '')); ?>"
+    <a class="button success" href="<?php echo base_url('edit.php?id='.$post['id']); ?>">Edit</a>
+    <a class="button danger" href="<?php echo base_url('delete.php?id='.$post['id'].'&token='.urlencode($_SESSION['csrf'] ?? '')); ?>"
        onclick="return confirm('Delete this post?');">Delete</a>
   </div>
 <?php endif; ?>
