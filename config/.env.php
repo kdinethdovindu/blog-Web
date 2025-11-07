@@ -1,7 +1,6 @@
 <?php
-// NEVER commit real production secrets. For local dev this is fine.
-define('DB_HOST', '127.0.0.1');     // or 'localhost'
-define('DB_NAME', 'blogapp');
-define('DB_USER', 'bloguser');
-define('DB_PASS', 'Blog@12345!');   // the same password you set
-define('BASE_URL', 'http://localhost/blog-app'); // used later for links
+define('DB_HOST', 'sql112.infinityfree.com');   // from InfinityFree panel
+define('DB_NAME', 'if0_40339735_blogapp');    // your exact DB name
+define('DB_USER', 'if0_40339735');            // your DB user
+define('DB_PASS', '2003Dineth');
+define('BASE_URL', 'https://dinethblog.infinityfreeapp.com'); // your new site URL
