@@ -7,6 +7,8 @@ $content = trim($_POST['content'] ?? '');
 $errors = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  require_valid_csrf();
+
   if ($title === '' || mb_strlen($title) < 3)   $errors[] = 'Title must be at least 3 characters.';
   if ($content === '' || mb_strlen($content) < 10) $errors[] = 'Content must be at least 10 characters.';
 
@@ -33,6 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <div style="color:#ef4444"><?php foreach ($errors as $e) echo '<div>'.e($e).'</div>'; ?></div>
 <?php endif; ?>
 <form method="post" style="display:grid;gap:16px;max-width:720px">
+  <input type="hidden" name="csrf" value="<?php echo e(csrf_token()); ?>">
   <!-- title -->
   <div class="form-field">
     <input name="title" value="<?php echo e($title); ?>" placeholder=" " required>

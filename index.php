@@ -1,6 +1,5 @@
 <?php
-// public landing page for our assignment
-// quick health-check
+// Lightweight local environment health check.
 $php_ok = version_compare(PHP_VERSION, '8.0.0', '>=');
 ?>
 <!doctype html>
@@ -47,12 +46,12 @@ $php_ok = version_compare(PHP_VERSION, '8.0.0', '>=');
         </div>
       </div>
       <div class="row">
-        <div>phpinfo()</div>
-        <div><a class="btn" href="phpinfo.php" target="_blank">Open</a></div>
+        <div>Blog Application</div>
+        <div><a class="btn" href="public/">Open</a></div>
       </div>
-      <p class="tag">Tip: This page proves Apache + PHP work. We’ll wire MySQL in the next part.</p>
+      <p class="tag">This page confirms that PHP is running. The blog also requires a configured MySQL database.</p>
     </main>
-    <footer>If you see this page at <code>http://localhost/blog-app/</code>, Part 1 is good.</footer>
+    <footer>Local URL: <code>http://localhost/blog-Web/</code></footer>
   </div>
 </body>
 </html>

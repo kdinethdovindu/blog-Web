@@ -2,9 +2,19 @@
 require_once __DIR__ . '/../includes/init.php';
 require_login();
 
-$id = (int)($_GET['id'] ?? 0);
-$token = $_GET['token'] ?? '';
-if (!$id || !$token || $token !== ($_SESSION['csrf'] ?? '')) { http_response_code(400); exit('Bad request.'); }
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+  http_response_code(405);
+  header('Allow: POST');
+  exit('Method not allowed.');
+}
+
+require_valid_csrf();
+
+$id = (int)($_POST['id'] ?? 0);
+if (!$id) {
+  http_response_code(400);
+  exit('Bad request.');
+}
 
 $u = current_user();
 // load the post to check ownership and get slug for message
@@ -13,7 +23,7 @@ $q->execute([$id]);
 $post = $q->fetch();
 if (!$post) { http_response_code(404); exit('Not found'); }
 
-if ($post['user_id'] !== $u['id'] && $u['role'] !== 'admin') {
+if ((int)$post['user_id'] !== (int)$u['id'] && $u['role'] !== 'admin') {
   http_response_code(403); exit('Forbidden');
 }
 

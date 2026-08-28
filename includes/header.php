@@ -26,7 +26,10 @@ body{background:#0b1220;color:#e5e7eb;font-family:system-ui,-apple-system,Segoe 
       <?php if (!empty($_SESSION['user'])): ?>
         <a href="<?php echo base_url('mine.php'); ?>">My Posts</a>
         <span class="welcome">Hi, <?php echo e($_SESSION['user']['username']); ?></span>
-        <a href="<?php echo base_url('logout.php'); ?>">Logout</a>
+        <form class="nav-form" method="post" action="<?php echo base_url('logout.php'); ?>">
+          <input type="hidden" name="csrf" value="<?php echo e(csrf_token()); ?>">
+          <button class="nav-button" type="submit">Logout</button>
+        </form>
       <?php else: ?>
         <a href="<?php echo base_url('register.php'); ?>">Register</a>
         <a href="<?php echo base_url('login.php'); ?>">Login</a>

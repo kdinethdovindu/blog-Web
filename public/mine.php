@@ -24,8 +24,11 @@ $posts = $stmt->fetchAll();
     <div style="display:flex;gap:8px;flex-wrap:wrap">
       <a class="button" href="<?php echo base_url('post.php?slug='.urlencode($p['slug'])); ?>">View</a>
       <a class="button success" href="<?php echo base_url('edit.php?id='.$p['id']); ?>">Edit</a>
-      <a class="button danger" href="<?php echo base_url('delete.php?id='.$p['id'].'&token='.urlencode($_SESSION['csrf'] ?? '')); ?>"
-         onclick="return confirm('Delete this post? This cannot be undone.');">Delete</a>
+      <form method="post" action="<?php echo base_url('delete.php'); ?>" onsubmit="return confirm('Delete this post? This cannot be undone.');">
+        <input type="hidden" name="id" value="<?php echo (int)$p['id']; ?>">
+        <input type="hidden" name="csrf" value="<?php echo e(csrf_token()); ?>">
+        <button class="button danger" type="submit">Delete</button>
+      </form>
     </div>
   </div>
 <?php endforeach; endif; ?>

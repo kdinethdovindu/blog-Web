@@ -6,6 +6,8 @@ $identity = trim($_POST['identity'] ?? ''); // username or email
 $pass     = $_POST['password'] ?? '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  require_valid_csrf();
+
   if ($identity === '' || $pass === '') $errors[] = 'Both fields are required.';
   if (!$errors) {
     $q = db()->prepare('SELECT id, username, email, password_hash, role FROM users WHERE username = ? OR email = ? LIMIT 1');
@@ -15,6 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $errors[] = 'Invalid credentials.';
     } else {
       unset($u['password_hash']);
+      session_regenerate_id(true);
       $_SESSION['user'] = $u;
       flash('ok', 'Welcome back, '.$u['username'].'!');
       header('Location: '.base_url()); exit;
@@ -27,6 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <div style="color:#ef4444"><?php foreach ($errors as $e) echo '<div>'.e($e).'</div>'; ?></div>
 <?php endif; ?>
 <form method="post" style="display:grid;gap:16px;max-width:420px">
+  <input type="hidden" name="csrf" value="<?php echo e(csrf_token()); ?>">
   <div class="form-field">
     <input name="identity" value="<?php echo e($identity ?? ''); ?>" placeholder=" " required>
     <label>Username or Email</label>

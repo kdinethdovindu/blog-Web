@@ -11,7 +11,7 @@ $q->execute([$id]);
 $post = $q->fetch();
 
 if (!$post) { http_response_code(404); echo "<p>Post not found.</p>"; require __DIR__.'/../includes/footer.php'; exit; }
-if ($post['user_id'] !== $u['id'] && $u['role'] !== 'admin') {
+if ((int)$post['user_id'] !== (int)$u['id'] && $u['role'] !== 'admin') {
   http_response_code(403); echo "<p>Forbidden.</p>"; require __DIR__.'/../includes/footer.php'; exit;
 }
 
@@ -20,6 +20,8 @@ $content = $post['content'];
 $errors = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  require_valid_csrf();
+
   $title = trim($_POST['title'] ?? '');
   $content = trim($_POST['content'] ?? '');
 
@@ -40,6 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <div style="color:#ef4444"><?php foreach ($errors as $e) echo '<div>'.e($e).'</div>'; ?></div>
 <?php endif; ?>
 <form method="post" style="display:grid;gap:16px;max-width:720px">
+  <input type="hidden" name="csrf" value="<?php echo e(csrf_token()); ?>">
   <div class="form-field">
     <input name="title" value="<?php echo e($title); ?>" placeholder=" " required>
     <label>Title</label>

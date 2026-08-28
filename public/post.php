@@ -51,11 +51,14 @@ function render_post($s){
 </div>
 
 
-  <?php if (current_user() && (current_user()['id'] === (int)$post['user_id'] || current_user()['role'] === 'admin')): ?>
+  <?php if (current_user() && ((int)current_user()['id'] === (int)$post['user_id'] || current_user()['role'] === 'admin')): ?>
   <div style="display:flex;gap:8px;margin-top:10px">
     <a class="button success" href="<?php echo base_url('edit.php?id='.$post['id']); ?>">Edit</a>
-    <a class="button danger" href="<?php echo base_url('delete.php?id='.$post['id'].'&token='.urlencode($_SESSION['csrf'] ?? '')); ?>"
-       onclick="return confirm('Delete this post?');">Delete</a>
+    <form method="post" action="<?php echo base_url('delete.php'); ?>" onsubmit="return confirm('Delete this post?');">
+      <input type="hidden" name="id" value="<?php echo (int)$post['id']; ?>">
+      <input type="hidden" name="csrf" value="<?php echo e(csrf_token()); ?>">
+      <button class="button danger" type="submit">Delete</button>
+    </form>
   </div>
 <?php endif; ?>
 
