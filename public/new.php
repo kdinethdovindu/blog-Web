@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../includes/header.php';
+require_once __DIR__ . '/../includes/init.php';
 require_login(); // must be logged in
 
 $title = trim($_POST['title'] ?? '');
@@ -29,6 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header('Location: '.base_url('post.php?slug='.$slug)); exit;
   }
 }
+require_once __DIR__ . '/../includes/header.php';
 ?>
 <h1>Create Post</h1>
 <?php if ($errors): ?>

@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../includes/header.php';
+require_once __DIR__ . '/../includes/init.php';
 require_login();
 
 $id = (int)($_GET['id'] ?? 0);
@@ -10,9 +10,9 @@ $q = db()->prepare("SELECT * FROM posts WHERE id=? LIMIT 1");
 $q->execute([$id]);
 $post = $q->fetch();
 
-if (!$post) { http_response_code(404); echo "<p>Post not found.</p>"; require __DIR__.'/../includes/footer.php'; exit; }
+if (!$post) { http_response_code(404); require __DIR__.'/../includes/header.php'; echo "<p>Post not found.</p>"; require __DIR__.'/../includes/footer.php'; exit; }
 if ((int)$post['user_id'] !== (int)$u['id'] && $u['role'] !== 'admin') {
-  http_response_code(403); echo "<p>Forbidden.</p>"; require __DIR__.'/../includes/footer.php'; exit;
+  http_response_code(403); require __DIR__.'/../includes/header.php'; echo "<p>Forbidden.</p>"; require __DIR__.'/../includes/footer.php'; exit;
 }
 
 $title = $post['title'];
@@ -36,6 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header('Location: '.base_url('post.php?slug='.$post['slug'])); exit;
   }
 }
+require_once __DIR__ . '/../includes/header.php';
 ?>
 <h1>Edit Post</h1>
 <?php if ($errors): ?>

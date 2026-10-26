@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../includes/header.php';
+require_once __DIR__ . '/../includes/init.php';
 
 $errors = [];
 $username = trim($_POST['username'] ?? '');
@@ -46,6 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
   }
 }
+require_once __DIR__ . '/../includes/header.php';
 ?>
 <h1>Create Account</h1>
 <?php if ($errors): ?>

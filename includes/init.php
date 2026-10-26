@@ -1,25 +1,38 @@
 <?php
 // Bootstraps sessions, the database connection, and shared helpers.
+require_once __DIR__ . '/../config/db.php';
 
 if (session_status() === PHP_SESSION_NONE) {
-    $isHttps = !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off';
+    $isVercel = getenv('VERCEL') === '1';
+    $isHttps = $isVercel || (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off');
+    ini_set('session.use_strict_mode', '1');
+    ini_set('session.use_only_cookies', '1');
+    ini_set('session.gc_maxlifetime', '7200');
+    if ($isVercel || app_config('SESSION_DRIVER', 'files') === 'database') {
+        require_once __DIR__ . '/database-session.php';
+        session_set_save_handler(new DatabaseSessionHandler(pdo()), true);
+        ini_set('session.gc_probability', '1');
+        ini_set('session.gc_divisor', '100');
+    }
     session_set_cookie_params([
+        'path' => '/',
         'httponly' => true,
         'secure' => $isHttps,
         'samesite' => 'Lax',
     ]);
-    session_start();
+    if (!session_start()) {
+        throw new RuntimeException('Unable to start session.');
+    }
 }
 
 if (empty($_SESSION['csrf'])) {
     $_SESSION['csrf'] = bin2hex(random_bytes(32));
 }
 
-require_once __DIR__ . '/../config/db.php';
-
 function base_url(string $path = ''): string
 {
-    $root = rtrim(BASE_URL, '/') . '/public';
+    // Relative URLs work on production, preview URLs, and custom domains.
+    $root = rtrim(app_config('BASE_URL'), '/') . '/public';
     if ($path === '') {
         return $root . '/';
     }

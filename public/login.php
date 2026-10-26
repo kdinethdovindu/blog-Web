@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../includes/header.php';
+require_once __DIR__ . '/../includes/init.php';
 
 $errors = [];
 $identity = trim($_POST['identity'] ?? ''); // username or email
@@ -24,6 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
   }
 }
+require_once __DIR__ . '/../includes/header.php';
 ?>
 <h1>Login</h1>
 <?php if ($errors): ?>

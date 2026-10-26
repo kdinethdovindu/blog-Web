@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../includes/header.php';
+require_once __DIR__ . '/../includes/init.php';
 require_login();
 
 $u = current_user();
@@ -9,6 +9,7 @@ $stmt = db()->prepare("
 ");
 $stmt->execute([$u['id']]);
 $posts = $stmt->fetchAll();
+require_once __DIR__ . '/../includes/header.php';
 ?>
 <h1>My Posts</h1>
 

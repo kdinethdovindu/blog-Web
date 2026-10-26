@@ -1,2 +1,7 @@
 config/.env.php
 .env
+.env.*
+.vercel/
+*.pem
+/backups/
+/tests/.tmp/

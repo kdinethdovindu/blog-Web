@@ -1,0 +1,15 @@
+.git
+.vercel
+.env
+.env.*
+config/.env.php
+config/.env.example.php
+database
+backups
+docs
+tests
+README.md
+AGENTS.md
+*.pem
+*.sql
+node_modules

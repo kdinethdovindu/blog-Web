@@ -68,6 +68,15 @@ index.php                 Local PHP environment health check
 
 ## Getting Started
 
+### Deploy to Vercel + Aiven (keep PHP)
+
+Follow the [step-by-step deployment guide](docs/DEPLOYMENT.md) to create a free
+Aiven MySQL database, optionally transfer your existing users/posts, configure
+Vercel environment variables, and deploy with the community PHP runtime.
+Vercel uses verified database TLS and database-backed login sessions. Existing
+databases need [the session-table migration](database/sessions.sql); new databases
+can use [the full schema](database/schema.sql). Local PHP setup is described below.
+
 ### Requirements
 
 - PHP 8.0 or newer with the PDO MySQL and `mbstring` extensions
