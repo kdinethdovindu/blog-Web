@@ -10,5 +10,5 @@ define('BASE_URL', 'http://localhost/blog-Web');
 
 // For local connections to Aiven, download its CA certificate and set this path.
 // define('DB_SSL_CA', 'C:/path/to/ca.pem');
-// define('SESSION_DRIVER', 'database'); // Requires database/sessions.sql.
+// define('SESSION_DRIVER', 'database'); // Requires an existing sessions table.
 // On Vercel, configure environment variables instead; this file is not deployed.

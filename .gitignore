@@ -5,3 +5,13 @@ config/.env.php
 *.pem
 /backups/
 /tests/.tmp/
+
+# Local tools, dependencies, and generated files
+/state/
+/.codex/
+/node_modules/
+/vendor/
+*.log
+.DS_Store
+Thumbs.db
+Desktop.ini

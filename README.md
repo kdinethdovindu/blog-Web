@@ -1,141 +1,65 @@
-# Blog Web Application
+# BlogApp
 
-A full-stack blog web application developed using PHP and MySQL. The application allows users to create accounts, authenticate, publish blog posts, and manage their own content.
+A responsive blog application built with PHP and MySQL. Users can create an account, publish stories, and manage their own posts through a simple writing interface.
 
-This project was independently developed to gain practical experience in PHP, MySQL, authentication, CRUD operations, sessions, authorization, and database-driven web application development.
+**[View live website](https://blog-web-ecru-delta.vercel.app/)**
 
 ## Features
 
-- User registration and login with username or email
-- Session-based authentication
-- Create, read, update, and delete blog posts
-- User-specific post management
-- Authorization checks for editing and deleting posts
-- Unique, readable blog post URLs using generated slugs
-- Lightweight Markdown-style post formatting and live preview
-- Responsive interface built with custom CSS
-- Flash messages for important user actions
+- Register and log in with a username or email.
+- Create, read, edit, and delete blog posts.
+- Manage personal content through **My Posts**.
+- Preview lightweight Markdown formatting while writing.
+- Browse a responsive interface on desktop and mobile.
+- Stay signed in with database-backed sessions on Vercel.
 
-## Tech Stack
+## Screenshots
 
-- PHP 8
-- MySQL or MariaDB
-- PDO for database access
-- HTML5
-- CSS3
-- JavaScript
-- Git and GitHub
+### Desktop
 
-## Security Features
+| Home page | Post page |
+| --- | --- |
+| ![Desktop home page](screenshots/desktop-home.png) | ![Desktop post page](screenshots/desktop-post.png) |
 
-- Password hashing with `password_hash()`
-- Password verification with `password_verify()`
-- Prepared PDO statements for queries containing user input
-- Session ID regeneration after registration, login, and logout
-- HTTP-only, SameSite session cookies
-- CSRF protection for authentication, post creation, editing, deletion, and logout
-- Ownership and role checks before posts can be edited or deleted
-- HTML escaping for user-controlled output
-- Local database credentials excluded from Git
+### Mobile
 
-## Project Structure
+<p>
+  <img src="screenshots/mobile-home.png" alt="Mobile home page" width="300">
+  <img src="screenshots/mobile-post.png" alt="Mobile post page" width="300">
+</p>
+
+## Tech stack
+
+| Layer | Technology |
+| --- | --- |
+| Backend | PHP 8 and PDO |
+| Database | MySQL hosted on Aiven |
+| Frontend | HTML, CSS, and vanilla JavaScript |
+| Hosting | Vercel with the community PHP runtime |
+
+## Security
+
+- Password hashing and verification with PHP.
+- Prepared SQL statements and escaped page output.
+- CSRF protection for authentication and post actions.
+- Ownership checks for editing and deleting posts.
+- Secure, HTTP-only session cookies on Vercel.
+- Verified TLS connections to Aiven MySQL.
+- Database credentials supplied through environment variables on Vercel.
+
+## Project structure
 
 ```text
-assets/
-  css/                 Application styles
-  js/                  Navigation and post-preview scripts
-config/
-  .env.example.php     Safe configuration template
-  db.php               PDO database connection
-database/
-  schema.sql            Database tables for a new installation
-includes/
-  init.php              Sessions, database bootstrap, and shared helpers
-  header.php            Shared page header and navigation
-  footer.php            Shared page footer
-  flash.php             Flash-message display
-public/
-  index.php              Blog home page
-  register.php           User registration
-  login.php              User login
-  new.php                Post creation
-  edit.php               Post editing
-  delete.php             Post deletion
-  mine.php               Current user's posts
-  post.php               Individual post page
-index.php                 Local PHP environment health check
+api/           Vercel entry point and PHP runtime settings
+assets/        CSS and browser scripts
+config/        Database connection and configuration example
+includes/      Shared templates, helpers, and session storage
+public/        Blog pages and post actions
+screenshots/   Desktop and mobile images for this README
+index.php      Local redirect to the blog
+vercel.json    Vercel deployment configuration
 ```
-
-## Getting Started
-
-### Deploy to Vercel + Aiven (keep PHP)
-
-Follow the [step-by-step deployment guide](docs/DEPLOYMENT.md) to create a free
-Aiven MySQL database, optionally transfer your existing users/posts, configure
-Vercel environment variables, and deploy with the community PHP runtime.
-Vercel uses verified database TLS and database-backed login sessions. Existing
-databases need [the session-table migration](database/sessions.sql); new databases
-can use [the full schema](database/schema.sql). Local PHP setup is described below.
-
-### Requirements
-
-- PHP 8.0 or newer with the PDO MySQL and `mbstring` extensions
-- MySQL or MariaDB
-- A local server environment such as XAMPP, WampServer, or PHP's built-in development server
-
-### Installation
-
-1. Clone the repository:
-
-   ```bash
-   git clone https://github.com/kdinethdovindu/blog-Web.git
-   cd blog-Web
-   ```
-
-2. Create a MySQL database, for example `blog_web`.
-
-3. Import [`database/schema.sql`](database/schema.sql) into the new database. You can use phpMyAdmin or the MySQL command line:
-
-   ```bash
-   mysql -u root -p blog_web < database/schema.sql
-   ```
-
-4. Copy the example configuration:
-
-   ```bash
-   cp config/.env.example.php config/.env.php
-   ```
-
-   On Windows PowerShell, use:
-
-   ```powershell
-   Copy-Item config/.env.example.php config/.env.php
-   ```
-
-5. Edit `config/.env.php` with your local database settings. For a typical XAMPP installation:
-
-   ```php
-   <?php
-
-   define('DB_HOST', '127.0.0.1');
-   define('DB_NAME', 'blog_web');
-   define('DB_USER', 'root');
-   define('DB_PASS', '');
-
-   define('BASE_URL', 'http://localhost/blog-Web');
-   ```
-
-   `BASE_URL` should point to the project root without `/public`. Never commit this local configuration file.
-
-6. Start the application:
-
-   - **XAMPP:** place the project in `htdocs`, start Apache and MySQL, and open `http://localhost/blog-Web/public/`.
-   - **PHP development server:** set `BASE_URL` to `http://localhost:8000`, run `php -S localhost:8000` from the project root, and open `http://localhost:8000/public/`.
-
-7. Register an account and create your first post.
 
 ## Author
 
-**Dineth Dovindu**
-
-GitHub: [github.com/kdinethdovindu](https://github.com/kdinethdovindu)
+**Dineth Dovindu** — [GitHub](https://github.com/kdinethdovindu)

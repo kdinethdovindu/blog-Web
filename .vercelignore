@@ -7,9 +7,13 @@ config/.env.example.php
 database
 backups
 docs
+screenshots
 tests
 README.md
 AGENTS.md
 *.pem
 *.sql
 node_modules
+state
+.codex
+*.log
